@@ -11,6 +11,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using WebApplication1.Interfaces;
 using WebApplication1.Models;
+using WebApplication1.Services;
 
 namespace WebApplication1
 {
@@ -28,6 +29,12 @@ namespace WebApplication1
         {
             services.AddDbContext<ApplicationDbContext>(options => options.UseInMemoryDatabase("TestDIDb"));
             services.AddScoped<ICharacterRepository, CharacterRepository>();
+
+            services.AddTransient<IOperationTransient, Operation>();
+            services.AddScoped<IOperationScoped, Operation>();
+            services.AddSingleton<IOperationSingleton, Operation>();
+            services.AddSingleton<IOperationSingletonInstance>(new Operation(Guid.Empty));
+            services.AddTransient<OperationService, OperationService>();
 
             services.AddMvc();
         }
