@@ -31,6 +31,12 @@ namespace WebApplication1.Controllers
 
         public IActionResult Index()
         {
+            ViewBag.Transient = _transientOperation;
+            ViewBag.Scoped = _scopedOperation;
+            ViewBag.Singleton = _singletonOperation;
+            ViewBag.SingletonInstance = _singletonInstanceOperation;
+            ViewBag.Service = _operationService;
+
             return View();
         }
     }
