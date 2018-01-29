@@ -15,13 +15,13 @@ namespace WebApplication1.Services
 
         public OperationService(IOperationTransient transientOperation,
             IOperationScoped scopedOperation,
-            IOperationSingleton singletonOperation,
-            IOperationSingletonInstance singletonInstanceOperation)
+            IOperationSingleton singletonOperation)
+            //IOperationSingletonInstance singletonInstanceOperation)
         {
             TransientOperation = transientOperation;
             ScopedOperation = scopedOperation;
             SingletonOperation = singletonOperation;
-            SingletonInstanceOperation = singletonInstanceOperation;
+            //SingletonInstanceOperation = singletonInstanceOperation;
         }
     }
 }

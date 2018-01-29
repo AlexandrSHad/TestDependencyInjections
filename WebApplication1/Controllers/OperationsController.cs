@@ -14,19 +14,19 @@ namespace WebApplication1.Controllers
         private readonly IOperationTransient _transientOperation;
         private readonly IOperationScoped _scopedOperation;
         private readonly IOperationSingleton _singletonOperation;
-        private readonly IOperationSingletonInstance _singletonInstanceOperation;
+        //private readonly IOperationSingletonInstance _singletonInstanceOperation;
 
         public OperationsController(OperationService operationService,
             IOperationTransient transientOperation,
             IOperationScoped scopedOperation,
-            IOperationSingleton singletonOperation,
-            IOperationSingletonInstance singletonInstanceOperation)
+            IOperationSingleton singletonOperation)
+            //IOperationSingletonInstance singletonInstanceOperation)
         {
             _operationService = operationService;
             _transientOperation = transientOperation;
             _scopedOperation = scopedOperation;
             _singletonOperation = singletonOperation;
-            _singletonInstanceOperation = singletonInstanceOperation;
+            //_singletonInstanceOperation = singletonInstanceOperation;
         }
 
         public IActionResult Index()
@@ -34,7 +34,7 @@ namespace WebApplication1.Controllers
             ViewBag.Transient = _transientOperation;
             ViewBag.Scoped = _scopedOperation;
             ViewBag.Singleton = _singletonOperation;
-            ViewBag.SingletonInstance = _singletonInstanceOperation;
+            //ViewBag.SingletonInstance = _singletonInstanceOperation;
             ViewBag.Service = _operationService;
 
             return View();

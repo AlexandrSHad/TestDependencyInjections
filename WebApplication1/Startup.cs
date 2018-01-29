@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Autofac;
+using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +13,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using WebApplication1.Interfaces;
 using WebApplication1.Models;
+using WebApplication1.ModulesAutofacDI;
 using WebApplication1.Services;
 
 namespace WebApplication1
@@ -29,18 +31,14 @@ namespace WebApplication1
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options => options.UseInMemoryDatabase("TestDIDb"));
-            //services.AddScoped<ICharacterRepository, CharacterRepository>();
-
-            //services.AddTransient<IOperationTransient, Operation>();
-            //services.AddScoped<IOperationScoped, Operation>();
-            //services.AddSingleton<IOperationSingleton, Operation>();
-            //services.AddSingleton<IOperationSingletonInstance>(new Operation(Guid.Empty));
-            //services.AddTransient<OperationService, OperationService>();
 
             services.AddMvc();
 
             var containerBuilder = new ContainerBuilder();
             containerBuilder.RegisterModule<ServicesModule>();
+            containerBuilder.Populate(services);
+            var container = containerBuilder.Build();
+            return new AutofacServiceProvider(container);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
